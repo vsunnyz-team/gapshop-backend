@@ -1,0 +1,26 @@
+{
+  "name": "gapshop-backend",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "@hono/zod-openapi": "^0.18.3",
+    "@hono/zod-validator": "^0.4.2",
+    "@scalar/hono-api-reference": "^0.5.169",
+    "bcryptjs": "^2.4.3",
+    "hono": "^4.6.19",
+    "hono-openapi": "^0.4.3",
+    "zod": "^3.24.1",
+    "zod-openapi": "^4.2.3"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.3.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.11.17",
+    "install": "^0.13.0",
+    "prisma": "^6.2.1",
+    "tsx": "^4.7.1"
+  }
+}

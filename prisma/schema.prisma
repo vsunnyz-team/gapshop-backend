@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  id        Int      @id @default(autoincrement())
+  store     Store?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Store {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  address     String
+  email       String
+  phone       String
+  userId      Int        @unique
+  Products    Products[]
+  User        Users      @relation(fields: [userId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Products {
+  id           Int           @id @default(autoincrement())
+  storeId      Int
+  brandId      Int?
+  transportsId Int
+  name         String
+  img          String?
+  price        Int
+  type         TypeProduct
+  description  String?
+  amount       Int
+  status       StatusProduct
+  tags         tagsProduct?
+  weight       Float
+  width        Float
+  length       Float
+  height       Float
+  Brand        Brands?       @relation(fields: [brandId], references: [id])
+  Store        Store         @relation(fields: [storeId], references: [id])
+  Transport    Transports    @relation(fields: [transportsId], references: [id])
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Brands {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String?
+  logo        String?
+  Products    Products[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Transports {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String?
+  Products    Products[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+enum TypeProduct {
+  Normal
+  Set
+  Attribute
+}
+
+enum StatusProduct {
+  Active
+  Padding
+  Sold
+}
+
+enum tagsProduct {
+  New
+  Hot
+}
